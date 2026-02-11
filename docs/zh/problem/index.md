@@ -17,3 +17,9 @@
 |A|
 |:-:|
 |[Theatre Square \| 剧院广场](/problem/1/A)（数学）|
+
+## 18
+
+|D|
+|:-:|
+|[Seller Bob \| 卖家 Bob](/problem/18/D)（暴力，DP，贪心）
