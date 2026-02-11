@@ -1,0 +1,110 @@
+site_name: CodeForces 题目中文翻译站
+repo_url: https://github.com/CB-X2-Jun/codeforces-problems-cn-translations
+site_author: CB_X2_Jun
+site_description: CodeForces 题目的中文翻译站
+site_url: https://cf.etoj.run.place
+copyright: © 2025 CB_X2_Jun & 题目翻译者们
+remote_branch: main
+plugins:
+  - i18n:
+      docs_structure: folder
+      languages:
+        - locale: zh
+          default: true
+          name: 简体中文
+          build: true
+        - locale: en
+          default: false
+          name: English
+          build: true
+          nav_translations:
+            首页: Home
+            题目列表: Problem List
+            关于: About
+          site_name: CodeForces Problem Chinese Translation Site
+          site_description: A static site for browsing CodeForces translated problems
+  - search:
+      lang: 
+        - zh
+        - en
+nav:
+  - 首页: index.md
+  - 题目列表: problem/index.md
+  - 关于: about.md
+theme: 
+  name: material
+  color_mode: auto
+  user_color_mode_toggle: true
+  locale: zh
+  favicon: img/favicon.ico
+  logo: img/favicon.ico
+  icon:
+    repo: material/github
+  features:
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - navigation.tabs
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - search.highlight
+    - search.suggest
+    - search.share
+    - navigation.footer
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: octicons/sun-16
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: dark purple
+      toggle:
+        icon: material/weather-night
+        name: Switch to system preference
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_javascript:
+  - javascripts/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+
+extra_css:
+  - https://unpkg.com/katex@0/dist/katex.min.css
+
+extra:
+  social:
+    - icon: material/email
+      link: mailto:zzh20120518@outlook.com
+      name: Email
+    - icon: material/github
+      link: https://github.com/CB-X2-Jun
+      name: Site Owner's GitHub Account
