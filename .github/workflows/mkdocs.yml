@@ -8,29 +8,40 @@ on:
 
 jobs:
   build:
-    name: Deploy docs
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout main
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'   # ✅ 直接启用 pip 缓存
+          cache: 'pip'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Build docs
         run: mkdocs build -d build
 
-      - name: Deploy docs
-        uses: jsmrcaga/action-netlify-deploy@v1.1.0
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
+          node-version: 20
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Deploy
+        run: |
+          netlify deploy \
+            --prod \
+            --dir=build \
+            --message "Prod deploy ${{ github.sha }}"
+        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_DEPLOY_TO_PROD: true
-          NETLIFY_DEPLOY_MESSAGE: "Prod deploy ${{ github.sha }}"
