@@ -73,13 +73,37 @@
         clearInterval(timer);
 
         // 🔥 每 300ms 检查一次 meta，实时同步主题
-        setInterval(updateGiscusTheme, 300);
+        setInterval(updateGiscusTheme, 200);
       }
     }, 200);
   }
 
   window.addEventListener("load", waitForGiscus);
 </script>
+
+<script>
+  // 设置 giscus 语言
+  document.addEventListener("DOMContentLoaded", () => {
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (!iframe) return;
+
+    // 根据 URL 判断语言
+    const lang = window.location.pathname.startsWith("/en/") ? "en" : "zh-CN";
+
+    // 发送消息更新语言
+    iframe.contentWindow.postMessage(
+      {
+        giscus: {
+          setConfig: {
+            lang: lang
+          }
+        }
+      },
+      "https://giscus.app"
+    );
+  });
+</script>
+
 
       <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
       <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
