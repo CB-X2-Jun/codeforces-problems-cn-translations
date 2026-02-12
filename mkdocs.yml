@@ -36,6 +36,7 @@ theme:
   name: material
   color_mode: auto
   user_color_mode_toggle: true
+  custom_dir: overrides
   locale: zh
   favicon: img/favicon.ico
   logo: img/favicon.ico
@@ -102,6 +103,7 @@ extra_javascript:
 
 extra_css:
   - https://unpkg.com/katex@0/dist/katex.min.css
+  - css/o.css
 
 extra:
   social:
@@ -112,5 +114,6 @@ extra:
       link: https://github.com/CB-X2-Jun
 
       name: Site Owner's GitHub Account
+
 
 
