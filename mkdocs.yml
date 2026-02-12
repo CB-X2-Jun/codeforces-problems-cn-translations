@@ -5,6 +5,7 @@ site_description: CodeForces 题目的中文翻译站
 site_url: https://cf.etoj.run.place
 copyright: © 2026 CB_X2_Jun & 题目翻译者们
 remote_branch: main
+edit_uri: edit/main/docs/
 plugins:
   - i18n:
       docs_structure: folder
@@ -53,8 +54,8 @@ theme:
     - search.suggest
     - search.share
     - navigation.footer
-    - navigation.instant
-    - navigation.instant.progress
+    - content.action.edit
+    - content.action.view
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
@@ -111,4 +112,5 @@ extra:
       link: https://github.com/CB-X2-Jun
 
       name: Site Owner's GitHub Account
+
 
