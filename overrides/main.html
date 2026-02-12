@@ -39,25 +39,28 @@
 </script>
 
 <script>
+  // 上一次记录的主题
+  let lastTheme = null;
+
   function getGiscusTheme() {
     const meta = document.querySelector('meta[name="color-scheme"]');
-    return meta && meta.getAttribute("content") === "dark"
+    if (!meta) return "light_tritanopia";
+    return meta.getAttribute("content") === "dark"
       ? "dark_dimmed"
       : "light_tritanopia";
   }
 
   function updateGiscusTheme() {
     const iframe = document.querySelector("iframe.giscus-frame");
-    if (!iframe) return;
+    if (!iframe || !iframe.contentWindow) return;
+
+    const theme = getGiscusTheme();
+    if (theme === lastTheme) return; // 主题没变就跳过
+
+    lastTheme = theme;
 
     iframe.contentWindow.postMessage(
-      {
-        giscus: {
-          setConfig: {
-            theme: getGiscusTheme()
-          }
-        }
-      },
+      { giscus: { setConfig: { theme } } },
       "https://giscus.app"
     );
   }
@@ -68,18 +71,14 @@
       if (iframe && iframe.contentWindow) {
         updateGiscusTheme();
         clearInterval(timer);
+
+        // 🔥 每 300ms 检查一次 meta，实时同步主题
+        setInterval(updateGiscusTheme, 300);
       }
     }, 200);
   }
 
   window.addEventListener("load", waitForGiscus);
-
-  // 🔥 监听 head 变化（关键）
-  new MutationObserver(updateGiscusTheme)
-    .observe(document.head, {
-      childList: true,
-      subtree: true
-    });
 </script>
 
       <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
