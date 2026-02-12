@@ -2,12 +2,13 @@
 
 ## 1
 
-|A|
+|A [1000]|
 |:-:|
 |[Theatre Square](/en/problem/1/A) (math)|
 
 ## 18
 
-|D|
+|D [2000]|
 |:-:|
 |[Seller Bob](/en/problem/18/D) (brute force, dp, greedy)|
+
