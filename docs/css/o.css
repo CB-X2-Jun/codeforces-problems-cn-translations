@@ -1,0 +1,10 @@
+.page-authors,
+.page-license {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 0.8rem;
+}
+
+.page-license {
+  margin-bottom: 1.5rem;
+}
