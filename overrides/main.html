@@ -21,8 +21,8 @@
     若未特别说明，本站使用 SATA 与 CC BY-NC-SA 4.0。
   </div>
 
-  <div id="giscus-container"></div>
-  <!-- <script src="https://giscus.app/client.js"
+  <!-- <div id="giscus-container"></div> -->
+  <script src="https://giscus.app/client.js"
         data-repo="CB-X2-Jun/codeforces-problems-cn-translations"
         data-repo-id="R_kgDORNrtjg"
         data-category="Announcements"
@@ -32,27 +32,14 @@
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="top"
-        data-theme="light_tritanopia"
-        data-lang="zh-CN"
+        data-theme="light_tritanopia" 
+        data-lang="zh-CN"  
         crossorigin="anonymous"
         async>
-</script> -->
-
-<script>
-  // 判断语言
-  const lang = window.location.pathname.startsWith("/en/") ? "en" : "zh-CN";
-
-  // 构建 giscus src
-  const iframeSrc = `https://giscus.app/${lang}/widget?origin=${encodeURIComponent(window.location.origin + window.location.pathname)}&repo=CB-X2-Jun/codeforces-problems-cn-translations&repoId=R_kgDORNrtjg&category=Announcements&categoryId=DIC_kwDORNrtjs4C2Rv6&mapping=pathname&strict=1&reactionsEnabled=1&emitMetadata=0&inputPosition=top&theme=light_tritanopia`;
-
-  // 插入 iframe
-  const container = document.getElementById("giscus-container");
-  container.innerHTML = `<iframe class="giscus-frame" src="${iframeSrc}" frameborder="0" scrolling="no" width="100%" height="100%"></iframe>`;
 </script>
 
-
 <script>
-  // 上一次记录的主题
+  // ========= 轮询亮暗色 =========
   let lastTheme = null;
 
   function getGiscusTheme() {
@@ -68,8 +55,7 @@
     if (!iframe || !iframe.contentWindow) return;
 
     const theme = getGiscusTheme();
-    if (theme === lastTheme) return; // 主题没变就跳过
-
+    if (theme === lastTheme) return; // 未变化
     lastTheme = theme;
 
     iframe.contentWindow.postMessage(
@@ -85,35 +71,30 @@
         updateGiscusTheme();
         clearInterval(timer);
 
-        // 🔥 每 300ms 检查一次 meta，实时同步主题
+        // 每 200ms 检查 meta，同步亮暗色
         setInterval(updateGiscusTheme, 200);
       }
     }, 200);
   }
 
   window.addEventListener("load", waitForGiscus);
-  
-  // // 设置 giscus 语言
-  // document.addEventListener("DOMContentLoaded", () => {
-  //   const iframe = document.querySelector("iframe.giscus-frame");
-  //   if (!iframe) return;
 
-  //   // 根据 URL 判断语言
-  //   const lang = window.location.pathname.startsWith("/en/") ? "en" : "zh-CN";
+  // ========= 页面加载时设置语言 =========
+  window.addEventListener("DOMContentLoaded", () => {
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (!iframe || !iframe.contentWindow) return;
 
-  //   // 发送消息更新语言
-  //   iframe.contentWindow.postMessage(
-  //     {
-  //       giscus: {
-  //         setConfig: {
-  //           lang: lang
-  //         }
-  //       }
-  //     },
-  //     "https://giscus.app"
-  //   );
-  // });
+    // 根据 <html lang=""> 判定语言
+    const htmlLang = document.documentElement.lang;
+    const lang = htmlLang === "en" ? "en" : "zh-CN";
+
+    iframe.contentWindow.postMessage(
+      { giscus: { setConfig: { lang } } },
+      "https://giscus.app"
+    );
+  });
 </script>
+
 
 
       <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
