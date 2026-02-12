@@ -41,9 +41,7 @@
 <script>
   function getGiscusTheme() {
     const meta = document.querySelector('meta[name="color-scheme"]');
-    if (!meta) return "light_tritanopia";
-
-    return meta.getAttribute("content") === "dark"
+    return meta && meta.getAttribute("content") === "dark"
       ? "dark_dimmed"
       : "light_tritanopia";
   }
@@ -74,21 +72,15 @@
     }, 200);
   }
 
-  // 页面加载后等待 giscus 初始化
   window.addEventListener("load", waitForGiscus);
 
-  // 实时监听主题切换
-  const meta = document.querySelector('meta[name="color-scheme"]');
-  if (meta) {
-    new MutationObserver(updateGiscusTheme)
-      .observe(meta, {
-        attributes: true,
-        attributeFilter: ["content"]
-      });
-  }
+  // 🔥 监听 head 变化（关键）
+  new MutationObserver(updateGiscusTheme)
+    .observe(document.head, {
+      childList: true,
+      subtree: true
+    });
 </script>
-
-
 
       <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
       <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
