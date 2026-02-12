@@ -22,7 +22,7 @@
   </div>
 
   <div id="gitalk-container"></div>
-  <script src="https://giscus.app/client.js"
+  <!-- <script src="https://giscus.app/client.js"
         data-repo="CB-X2-Jun/codeforces-problems-cn-translations"
         data-repo-id="R_kgDORNrtjg"
         data-category="Announcements"
@@ -36,7 +36,20 @@
         data-lang="zh-CN"
         crossorigin="anonymous"
         async>
+</script> -->
+
+<script>
+  // 判断语言
+  const lang = window.location.pathname.startsWith("/en/") ? "en" : "zh-CN";
+
+  // 构建 giscus src
+  const iframeSrc = `https://giscus.app/${lang}/widget?origin=${encodeURIComponent(window.location.origin + window.location.pathname)}&repo=CB-X2-Jun/codeforces-problems-cn-translations&repoId=R_kgDORNrtjg&category=Announcements&categoryId=DIC_kwDORNrtjs4C2Rv6&mapping=pathname&strict=1&reactionsEnabled=1&emitMetadata=0&inputPosition=top&theme=light_tritanopia`;
+
+  // 插入 iframe
+  const container = document.getElementById("giscus-container");
+  container.innerHTML = `<iframe class="giscus-frame" src="${iframeSrc}" frameborder="0" scrolling="no" width="100%" height="100%"></iframe>`;
 </script>
+
 
 <script>
   // 上一次记录的主题
@@ -80,26 +93,26 @@
 
   window.addEventListener("load", waitForGiscus);
   
-  // 设置 giscus 语言
-  document.addEventListener("DOMContentLoaded", () => {
-    const iframe = document.querySelector("iframe.giscus-frame");
-    if (!iframe) return;
+  // // 设置 giscus 语言
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   const iframe = document.querySelector("iframe.giscus-frame");
+  //   if (!iframe) return;
 
-    // 根据 URL 判断语言
-    const lang = window.location.pathname.startsWith("/en/") ? "en" : "zh-CN";
+  //   // 根据 URL 判断语言
+  //   const lang = window.location.pathname.startsWith("/en/") ? "en" : "zh-CN";
 
-    // 发送消息更新语言
-    iframe.contentWindow.postMessage(
-      {
-        giscus: {
-          setConfig: {
-            lang: lang
-          }
-        }
-      },
-      "https://giscus.app"
-    );
-  });
+  //   // 发送消息更新语言
+  //   iframe.contentWindow.postMessage(
+  //     {
+  //       giscus: {
+  //         setConfig: {
+  //           lang: lang
+  //         }
+  //       }
+  //     },
+  //     "https://giscus.app"
+  //   );
+  // });
 </script>
 
 
