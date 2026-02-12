@@ -48,7 +48,7 @@
       : "light_tritanopia";
   }
 
-  function syncGiscusTheme() {
+  function updateGiscusTheme() {
     const iframe = document.querySelector("iframe.giscus-frame");
     if (!iframe) return;
 
@@ -64,21 +64,30 @@
     );
   }
 
-  // 页面加载后同步一次
-  window.addEventListener("load", () => {
-    setTimeout(syncGiscusTheme, 300);
-  });
+  function waitForGiscus() {
+    const timer = setInterval(() => {
+      const iframe = document.querySelector("iframe.giscus-frame");
+      if (iframe && iframe.contentWindow) {
+        updateGiscusTheme();
+        clearInterval(timer);
+      }
+    }, 200);
+  }
 
-  // 监听 <meta name="color-scheme"> 变化
+  // 页面加载后等待 giscus 初始化
+  window.addEventListener("load", waitForGiscus);
+
+  // 实时监听主题切换
   const meta = document.querySelector('meta[name="color-scheme"]');
   if (meta) {
-    const observer = new MutationObserver(syncGiscusTheme);
-    observer.observe(meta, {
-      attributes: true,
-      attributeFilter: ["content"]
-    });
+    new MutationObserver(updateGiscusTheme)
+      .observe(meta, {
+        attributes: true,
+        attributeFilter: ["content"]
+      });
   }
 </script>
+
 
 
       <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
